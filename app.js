@@ -3,12 +3,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var indexRouter = require('./routes/RouteIndex');
+var usersRouter = require('./routes/RouteUsers');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+require('dotenv').config()
 
 var app = express();
+app.listen(3000)
 
+var session = require('express-session')
+var MongoStore = require('connect-mongo')(session);
+app.use(session({
+	secret: 'i need more beers',
+	resave: false,
+	saveUninitialized: false,
+	store: new MongoStore({
+		url: process.env.DATABASE,
+	})
+}))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
