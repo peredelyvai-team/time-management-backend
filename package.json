@@ -6,6 +6,13 @@
     "server": "nodemon ./bin/www",
     "start": "node ./bin/www"
   },
+  "engines": {
+    "node": "12.x"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "dependencies": {
     "connect-mongo": "^3.2.0",
     "cookie-parser": "~1.4.4",
