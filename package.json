@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "server": "nodemon app.js",
+    "server": "nodemon ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {

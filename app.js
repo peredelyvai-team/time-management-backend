@@ -9,7 +9,6 @@ var usersRouter = require('./routes/RouteUsers');
 require('dotenv').config()
 
 var app = express();
-app.listen(4000)
 
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session);
