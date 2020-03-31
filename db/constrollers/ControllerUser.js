@@ -1,7 +1,4 @@
-const constants = require('../../helpers/constants')
-var mongoose = require('mongoose')
 var crypto = require('crypto')
-var db = mongoose.connect(constants.database, {useNewUrlParser: true, useUnifiedTopology: true })
 var User = require('../models/ModelUser')
 
 exports.createUser = (data) => {

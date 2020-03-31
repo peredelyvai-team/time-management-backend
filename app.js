@@ -5,12 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/RouteIndex');
 var usersRouter = require('./routes/RouteUsers');
-
+const mongoose = require('mongoose')
 require('dotenv').config()
 
 var app = express();
-
 var session = require('express-session')
+var db = mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, useUnifiedTopology: true })
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'i need more beers',
