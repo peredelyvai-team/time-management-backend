@@ -42,15 +42,12 @@ router.post('/logout', (request, response, next) => {
 })
 
 router.get('/', async (request, response, next) => {
+	response.send('hello men')
 })
 
 router.post('/registration', async (request, response, next) => {
-	console.log('create')
 	const result = await UsersApi.createUser(request.body)
 	response.send(result)
-	// if (error.toJSON().code === 11000) {
-	// 	response.status(500).send('This email already exists')
-	// }
 })
 
 module.exports = router;
