@@ -1,5 +1,5 @@
 var crypto = require('crypto')
-var Token = require('../models/ModelToken')
+var Token = require('./ModelToken')
 
 exports.getRefreshTokens = () => {
 	return Token.find({})

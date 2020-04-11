@@ -1,15 +1,25 @@
 var crypto = require('crypto')
-var User = require('../models/ModelUser')
+var User = require('./ModelUser')
 
 exports.createUser = (data) => {
 	const user = {
 		username: data.username,
 		email: data.email,
 		password: hash(data.password),
-		level: 0,
-		progress: 0
+		level: 1,
+		stars: 0,
+		remainStars: 10
 	}
 	return User.create(user)
+}
+
+exports.getUserProfile = (id) => {
+	const user = getUser(id)
+	return {
+		username: user.username,
+		stars: user.stars,
+		remainStars: user.remainStars
+	}
 }
 
 exports.getUser = (id) => {
