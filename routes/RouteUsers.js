@@ -8,7 +8,11 @@ router.post('/registration', async (request, response, next) => {
 	const isExists = await UsersApi.checkUserExists(request.body)
 	if (!isExists) {
 		const result = await UsersApi.createUser(request.body)
-		response.send(result)
+		const query = {
+			username: result.username,
+			email: result.email
+		}
+		response.send(query)
 	} else {
 		response.status(400).send('User with granted email is already exists')
 	}
@@ -16,7 +20,7 @@ router.post('/registration', async (request, response, next) => {
 
 var generateAccessToken = (query) => {
 	console.log(typeof  process.env.ACCESS_TOKEN_EXPIRES)
-	return jwt.sign(query, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+	return jwt.sign(query, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '60m' })
 }
 
 router.post('/token/refresh', async (request, response) => {
@@ -59,13 +63,13 @@ router.post('/login', async (request, response, next) => {
 			response.status(400).send('Invalid authorization data')
 		}
 	} else {
-		response.status(400).send('User does not exists')
+		response.status(404).send('User does not exists')
 	}
 })
 
-router.post('/logout', async (request, response, next) => {
-	await TokensApi.deleteToken(request.body)
-	response.sendStatus(204)
+router.post('/logout', async (request, response) => {
+	TokensApi.deleteToken(request.body)
+	response.sendStatus(200).send('Logout')
 })
 
 var checkToken = (request, response, next) => {
@@ -86,13 +90,19 @@ var checkToken = (request, response, next) => {
 	}
 }
 
-router.get('/', checkToken, (request, response, next) => {
-	response.send('hello men')
+router.get('/info', checkToken, async (request, response) => {
+	const id = request.query.id
+	const user = await UsersApi.getUser({id})
+	console.log(user)
+	if (user) {
+		response.json(null)
+	} else {
+		response.sendStatus(500)
+	}
 })
 
-router.post('/registration', async (request, response, next) => {
-	const result = await UsersApi.createUser(request.body)
-	response.send(result)
+router.get('/', checkToken, (request, response, next) => {
+	response.send('hello men')
 })
 
 module.exports = router;

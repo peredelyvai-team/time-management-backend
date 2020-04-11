@@ -5,7 +5,9 @@ exports.createUser = (data) => {
 	const user = {
 		username: data.username,
 		email: data.email,
-		password: hash(data.password)
+		password: hash(data.password),
+		level: 0,
+		progress: 0
 	}
 	return User.create(user)
 }
