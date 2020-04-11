@@ -40,8 +40,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 var usersRouter = require('./components/users/RouteUsers');
-// app.use('/', usersRouter);
+var tokensRouter = require('./components/tokens/RoutesToken');
 app.use('/users', usersRouter);
+app.use('/users', tokensRouter);
 
 
 // error handler

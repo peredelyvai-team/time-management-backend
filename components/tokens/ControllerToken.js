@@ -9,6 +9,12 @@ exports.addToken = (token) => {
 	return Token.create(token)
 }
 
-exports.deleteToken = (token) => {
-	return Token.deleteOne(token)
+exports.deleteToken = async (token) => {
+	const removing = await Token.deleteOne(token)
+	if (removing.deletedCount > 0) {
+		console.log(removing)
+		return true
+	}	else {
+		return null
+	}
 }
