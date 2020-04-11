@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken')
-const UsersApi = require('../db/constrollers/ControllerUser')
-const TokensApi = require('../db/constrollers/ControllerToken')
+const UsersApi = require('./ControllerUser')
+const TokensApi = require('../tokens/ControllerToken')
 
 router.post('/registration', async (request, response, next) => {
 	const isExists = await UsersApi.checkUserExists(request.body)
