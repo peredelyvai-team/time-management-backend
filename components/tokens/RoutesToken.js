@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken')
 const TokensApi = require('../tokens/ControllerToken')
-var { generateAccessToken } = require('../helpers/token')
+var { generateAccessToken } = require('../../helpers/token')
 
 router.post('/token/refresh', async (request, response) => {
 	const refresh_token = request.body.refresh_token

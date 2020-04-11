@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const UsersApi = require('./ControllerUser')
 const TokensApi = require('../tokens/ControllerToken')
 var ObjectID = require('mongodb').ObjectID;
-var { generateAccessToken, checkToken } = require('../helpers/token')
+var { generateAccessToken, checkToken } = require('../../helpers/token')
 
 router.post('/registration', async (request, response, next) => {
 	const isExists = await UsersApi.checkUserExists(request.body)
