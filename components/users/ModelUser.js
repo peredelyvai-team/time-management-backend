@@ -17,8 +17,12 @@ var User = new mongoose.Schema({
   	type: Number,
 		required: false
 	},
-	progress: {
-  	type: Number,
+	stars: {
+		type: Number,
+		required: false
+	},
+	remainStars: {
+		type: Number,
 		required: false
 	}
 })

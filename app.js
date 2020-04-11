@@ -10,7 +10,7 @@ require('dotenv').config()
 // app init, connect database
 var app = express();
 var session = require('express-session')
-// var db = mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, useUnifiedTopology: true })
+var db = mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, useUnifiedTopology: true })
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: process.env.ACCESS_TOKEN_SECRET,
@@ -32,14 +32,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
 
 // routes
 var usersRouter = require('./components/users/RouteUsers');
+// app.use('/', usersRouter);
 app.use('/users', usersRouter);
 
 
@@ -53,5 +54,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

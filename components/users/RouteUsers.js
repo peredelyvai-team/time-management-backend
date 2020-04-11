@@ -3,6 +3,7 @@ var router = express.Router();
 const jwt = require('jsonwebtoken')
 const UsersApi = require('./ControllerUser')
 const TokensApi = require('../tokens/ControllerToken')
+var ObjectID = require('mongodb').ObjectID;
 
 router.post('/registration', async (request, response, next) => {
 	const isExists = await UsersApi.checkUserExists(request.body)
@@ -50,7 +51,7 @@ router.post('/token/refresh', async (request, response) => {
 	}
 })
 
-router.post('/login', async (request, response, next) => {
+router.post('/login', async (request, response) => {
 	const data = await UsersApi.checkUsersPassword(request.body)
 	if (typeof data === 'object') {
 		if (data.isValid) {
@@ -58,7 +59,7 @@ router.post('/login', async (request, response, next) => {
 			const access_token = generateAccessToken({email: request.body.email})
 			const refresh_token = jwt.sign({ email: request.body.email }, process.env.REFRESH_TOKEN_SECRET)
 			await TokensApi.addToken({refresh_token})
-			response.send({ access_token, refresh_token })
+			response.send({ access_token, refresh_token, uid: data.user._id })
 		} else {
 			response.status(400).send('Invalid authorization data')
 		}
@@ -66,6 +67,7 @@ router.post('/login', async (request, response, next) => {
 		response.status(404).send('User does not exists')
 	}
 })
+
 
 router.post('/logout', async (request, response) => {
 	TokensApi.deleteToken(request.body)
@@ -90,14 +92,14 @@ var checkToken = (request, response, next) => {
 	}
 }
 
-router.get('/info', checkToken, async (request, response) => {
-	const id = request.query.id
-	const user = await UsersApi.getUser({id})
-	console.log(user)
-	if (user) {
-		response.json(null)
-	} else {
-		response.sendStatus(500)
+router.get('/profile', checkToken, async (request, response) => {
+	
+	try {
+		const id = new ObjectID(request.query.id)
+		const user = await UsersApi.getUserProfile({_id: id})
+		response.json(user)
+	} catch {
+		response.status(403).send('User not found')
 	}
 })
 

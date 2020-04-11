@@ -13,12 +13,17 @@ exports.createUser = (data) => {
 	return User.create(user)
 }
 
-exports.getUserProfile = (id) => {
-	const user = getUser(id)
-	return {
-		username: user.username,
-		stars: user.stars,
-		remainStars: user.remainStars
+exports.getUserProfile = async (id) => {
+	const data = await User.findOne(id)
+	if (data) {
+		return {
+			username: data.username,
+			level: data.level,
+			stars: data.stars,
+			remainStars: data.remainStars
+		}
+	} else {
+		return null
 	}
 }
 
