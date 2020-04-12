@@ -28,6 +28,19 @@ var Task = new mongoose.Schema({
 	currentDuration: {
 		required: false,
 		type: Number
+	},
+	lastUpdated: {
+		required: false,
+		type: Date,
+		default: new Date ()
+	},
+	cycles: {
+		required: false,
+		type: Number
+	},
+	completed: {
+		required: false,
+		type: Boolean
 	}
 })
 

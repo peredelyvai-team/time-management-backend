@@ -21,7 +21,7 @@ var User = new mongoose.Schema({
 		type: Number,
 		required: false
 	},
-	remainStars: {
+	levelStars: {
 		type: Number,
 		required: false
 	}
