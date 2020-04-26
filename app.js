@@ -42,9 +42,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 var usersRouter = require('./components/users/RouteUsers');
 var tokensRouter = require('./components/tokens/RoutesToken');
 var tasksRouter = require('./components/tasks/RoutesTasks');
+var levelsRouter = require('./components/levels/RouterLevels')
 app.use('/users', usersRouter);
 app.use('/users', tokensRouter);
 app.use('/tasks', tasksRouter);
+app.use('/levels', levelsRouter)
 
 
 // error handler
