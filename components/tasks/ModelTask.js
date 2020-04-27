@@ -21,8 +21,8 @@ var Task = new mongoose.Schema({
 		required: false,
 		type: Boolean
 	},
-	active: {
-		reqiured: false,
+	status: {
+		required: false,
 		type: Boolean
 	},
 	currentDuration: {
@@ -37,10 +37,6 @@ var Task = new mongoose.Schema({
 	cycles: {
 		required: false,
 		type: Number
-	},
-	completed: {
-		required: false,
-		type: Boolean
 	}
 })
 

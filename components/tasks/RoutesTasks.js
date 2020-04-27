@@ -23,7 +23,7 @@ router.post('/create', checkToken, async (request, responce) => {
 
 router.put('/complete', checkToken, async (request, responce) => {
 	const task = request.body
-	const result = await TaskApi.updateTask(request.query.id, Object.assign({}, task, { completed: true }))
+	const result = await TaskApi.updateTask(request.query.id, Object.assign({}, task, { status: 'completed' }))
 	if (result) {
 		var progress = await UserApi.updateProgress(request.query.uid, task)
 		if (progress) {

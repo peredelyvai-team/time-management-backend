@@ -9,6 +9,7 @@ exports.generateAccessToken = (query) => {
 exports.checkToken = (request, response, next) => {
 	const authHeader = request.headers['authorization']
 	const token = authHeader && authHeader.split(' ')[1]
+	console.log(token)
 	if (token === null) {
 		return response.sendStatus(401)
 	} else {
